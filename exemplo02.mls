@@ -1,0 +1,30 @@
+programStart
+
+    character palavra_a;
+    int num_a;
+    int num_b;
+    float soma;
+
+    write(Digite seu nome);
+    read(palavra_a);
+
+    soma = 0.0;
+    num_a = 0;
+    num_b = 5;
+
+    while(num_a < num_b){
+        float nota_a;
+        write(Digite sua nota);
+        read(nota_a);
+        soma = soma + nota_a;
+        num_a = num_a + 1;
+    }
+
+    float result;
+    result = soma / 5;
+
+    writevar(palavra_a);
+    write(SUA MEDIA E);
+    writevar(result);
+
+programEnd

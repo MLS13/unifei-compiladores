@@ -1,0 +1,17 @@
+programStart
+
+float num_a;
+float num_b;
+
+write(Digite um numero);
+read(num_a);
+write(Digite outro numero);
+read(num_b);
+
+float result;
+result = (num_a + num_b) / 2;
+
+write(A MEDIA ENTRE ESTES DOIS NUMEROS E);
+writevar(result);
+
+programEnd
