@@ -14,5 +14,5 @@ cin >> num_b;
 float result;
 result = (num_a + num_b) / 2;
 cout << "A MEDIA ENTRE ESTES DOIS NUMEROS E" << endl; 
-cout << "result" << endl; 
+cout << result << endl; 
 }

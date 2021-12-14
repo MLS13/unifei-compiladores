@@ -92,7 +92,7 @@ Para saída de dados, temos dois comandos: write e writevar.
 
 - Autômato:
 
-  <img src="imagens\automato_if.png" style="zoom:80%;" />
+  <img src="imagens\automato_write.png" style="zoom:80%;" />
 
 Figura 5 – Autômato write.
 ##### 1.4.3.2  writevar:
@@ -102,7 +102,7 @@ Figura 5 – Autômato write.
 
 - Autômato:
 
-  <img src="imagens\automato_if.png" style="zoom:80%;" />
+  <img src="imagens\automato_write_var.png" style="zoom:80%;" />
 
 Figura 6 – Autômato writevar.
 

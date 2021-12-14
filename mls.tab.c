@@ -2155,9 +2155,9 @@ void imprimir(No *root){
             //Funcao print
             case WRITE:
                 fprintf(file_tokens, "WRITE \n");
-                fprintf(saida, "cout << \"");
+                fprintf(saida, "cout << ");
                 imprimir(root->esq);
-                fprintf(saida, "\" << endl; \n");
+                fprintf(saida, " << endl; \n");
                 break;
             case D_WRITE_ASPAS:
                 fprintf(file_tokens, "WRITEVAR  \n");
