@@ -1,3 +1,8 @@
+# **LINGUAGEM MLS**
+Linguagem desenvolvida para a disciplina de Compiladores do curso de Engenharia de Computação - [UNIFEI](https://unifei.edu.br/).
+
+A linguagem é composta por um analisador léxico e um analisador sintático. E após as análises, o código é convertido para a linguagem C++.
+
 # 1 **Analisador Léxico**
 
 Serão apresentados nesta seção as principais características da linguagem, algumas
@@ -182,15 +187,33 @@ Lista de palavras reservadas: programStart, programEnd, begin, end, if, else, fo
 while, character, int, float, write, read, and, or, mod.
 
 
+# 2 **Exemplo de código em MLS**
+| Código em MLS  | 
+| :-------- | 
+|programStart|
+|float num_a;|
+|float num_b;|
+|write(Digite um numero);|
+|read(num_a);|
+|write(Digite outro numero);|
+|read(num_b);|
+|float result;|
+|result = (num_a + num_b) / 2;|
+|write(A MEDIA ENTRE ESTES DOIS NUMEROS E);|
+|writevar(result);|
+|programEnd|
 
-# 2 Analisador Sintático
 
-O analisador sintético tem como finalidade verificar a sintaxe do programa.
+# 3 **Como utilizar**
+Para executar os analizadores léxicos e sintáticos, e gerar o código em c++ e um arquivo contendo os tokens da linguagem, é necessário apenas executar o comando abaixo:
 
+**.\parser nome_arquivo.mls**
 
+Dessa forma, será gerado um código em c++. 
 
-## 2.1 Símbolos
+Com isso, para executar o programa é necessário que compile normalmente como um código em C++:
 
-- Símbolos terminais: +, -, *, /, mod, (, ), ==, >, >=, <, <=, and, or, !.
-- Símbolos não-terminais: exp, num, op.
-- Símbolo inicial: exp.
+**g++ nome_arquivo.mls.cc -o nome_arquivo**
+
+**.\nome_arquivo**
+

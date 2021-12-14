@@ -105,7 +105,7 @@ extern "C" FILE *yyin;
 void yyerror(const char *s);
 void imprimir(No *raiz);
 
-FILE *entrada, *saida, *tokens;
+FILE *entrada, *saida, *file_tokens;
 
 No *root;
 
@@ -493,12 +493,12 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   110,   110,   114,   117,   120,   122,   125,   127,   132,
-     133,   134,   135,   136,   138,   145,   146,   152,   157,   162,
-     167,   172,   177,   181,   187,   192,   197,   204,   211,   218,
-     225,   228,   235,   245,   252,   259,   260,   261,   262,   263,
-     264,   265,   266,   267,   268,   275,   282,   289,   296,   303,
-     310,   317,   324
+       0,   110,   110,   116,   119,   122,   124,   127,   129,   134,
+     135,   136,   137,   138,   140,   147,   148,   154,   159,   164,
+     169,   174,   179,   183,   189,   194,   199,   206,   213,   220,
+     227,   230,   237,   246,   253,   260,   261,   262,   263,   264,
+     265,   266,   267,   268,   269,   276,   283,   290,   297,   304,
+     311,   318,   325
 };
 #endif
 
@@ -1471,15 +1471,17 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 110 "mls.y"
-    { 
+    {
+    fprintf(file_tokens, "PROGRAMSTART \n"); 
     root = (yyvsp[(2) - (3)].pont); 
+    fprintf(file_tokens, "PROGRAMEND \n"); 
 ;}
     break;
 
   case 3:
 
 /* Line 1455 of yacc.c  */
-#line 114 "mls.y"
+#line 116 "mls.y"
     {
     (yyvsp[(1) - (2)].pont)->proximo = 0;
     (yyval.pont) = (yyvsp[(1) - (2)].pont);
@@ -1489,7 +1491,7 @@ yyreduce:
   case 4:
 
 /* Line 1455 of yacc.c  */
-#line 117 "mls.y"
+#line 119 "mls.y"
     {
     (yyvsp[(1) - (3)].pont)->proximo = (yyvsp[(3) - (3)].pont);
     (yyval.pont) = (yyvsp[(1) - (3)].pont);
@@ -1499,7 +1501,7 @@ yyreduce:
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 120 "mls.y"
+#line 122 "mls.y"
     {
     (yyval.pont) = (yyvsp[(1) - (1)].pont);
 ;}
@@ -1508,7 +1510,7 @@ yyreduce:
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 122 "mls.y"
+#line 124 "mls.y"
     {
     (yyval.pont) = (yyvsp[(1) - (2)].pont);
     (yyvsp[(1) - (2)].pont)->proximo = (yyvsp[(2) - (2)].pont);
@@ -1518,7 +1520,7 @@ yyreduce:
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 125 "mls.y"
+#line 127 "mls.y"
     {
     (yyval.pont) = (yyvsp[(1) - (1)].pont);
 ;}
@@ -1527,7 +1529,7 @@ yyreduce:
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 127 "mls.y"
+#line 129 "mls.y"
     {
     (yyval.pont) = (yyvsp[(1) - (2)].pont);
     (yyvsp[(1) - (2)].pont)->proximo = (yyvsp[(2) - (2)].pont);
@@ -1537,7 +1539,7 @@ yyreduce:
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 138 "mls.y"
+#line 140 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = '=';
@@ -1549,7 +1551,7 @@ yyreduce:
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 146 "mls.y"
+#line 148 "mls.y"
     { //Expressao para numeros positivos
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = NUM;
@@ -1562,7 +1564,7 @@ yyreduce:
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 152 "mls.y"
+#line 154 "mls.y"
     { //Expressao para soma
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = '+';
@@ -1574,7 +1576,7 @@ yyreduce:
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 157 "mls.y"
+#line 159 "mls.y"
     { //Expressao para subtracao
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = '-';
@@ -1586,7 +1588,7 @@ yyreduce:
   case 19:
 
 /* Line 1455 of yacc.c  */
-#line 162 "mls.y"
+#line 164 "mls.y"
     { //Expressao para multiplicacao
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = '*';
@@ -1598,7 +1600,7 @@ yyreduce:
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 167 "mls.y"
+#line 169 "mls.y"
     { //Expressao para divisao
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = '/';
@@ -1610,7 +1612,7 @@ yyreduce:
   case 21:
 
 /* Line 1455 of yacc.c  */
-#line 172 "mls.y"
+#line 174 "mls.y"
     { //Expressao para modulo da divisao
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = '%';
@@ -1622,7 +1624,7 @@ yyreduce:
   case 22:
 
 /* Line 1455 of yacc.c  */
-#line 177 "mls.y"
+#line 179 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = ABRE_PARENTESES;
@@ -1633,7 +1635,7 @@ yyreduce:
   case 23:
 
 /* Line 1455 of yacc.c  */
-#line 181 "mls.y"
+#line 183 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = ASPAS;
@@ -1644,7 +1646,7 @@ yyreduce:
   case 24:
 
 /* Line 1455 of yacc.c  */
-#line 187 "mls.y"
+#line 189 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = INT;
@@ -1656,7 +1658,7 @@ yyreduce:
   case 25:
 
 /* Line 1455 of yacc.c  */
-#line 192 "mls.y"
+#line 194 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = FLOAT;
@@ -1668,7 +1670,7 @@ yyreduce:
   case 26:
 
 /* Line 1455 of yacc.c  */
-#line 197 "mls.y"
+#line 199 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = CHARACTER;
@@ -1680,7 +1682,7 @@ yyreduce:
   case 27:
 
 /* Line 1455 of yacc.c  */
-#line 204 "mls.y"
+#line 206 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = READ;
@@ -1692,7 +1694,7 @@ yyreduce:
   case 28:
 
 /* Line 1455 of yacc.c  */
-#line 211 "mls.y"
+#line 213 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = WRITE;
@@ -1704,7 +1706,7 @@ yyreduce:
   case 29:
 
 /* Line 1455 of yacc.c  */
-#line 218 "mls.y"
+#line 220 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_WRITE_ASPAS;
@@ -1716,7 +1718,7 @@ yyreduce:
   case 30:
 
 /* Line 1455 of yacc.c  */
-#line 225 "mls.y"
+#line 227 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont) = (yyvsp[(1) - (1)].pont);
@@ -1726,7 +1728,7 @@ yyreduce:
   case 31:
 
 /* Line 1455 of yacc.c  */
-#line 228 "mls.y"
+#line 230 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = IDENTPRINT;
@@ -1738,9 +1740,8 @@ yyreduce:
   case 32:
 
 /* Line 1455 of yacc.c  */
-#line 235 "mls.y"
+#line 237 "mls.y"
     {
-    cout << "IDENT - COUT" << endl;
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = IDENT;
     strcpy((yyval.pont)->toC, yylval.pont->toC);
@@ -1753,7 +1754,7 @@ yyreduce:
   case 33:
 
 /* Line 1455 of yacc.c  */
-#line 245 "mls.y"
+#line 246 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = WHILE;
@@ -1765,7 +1766,7 @@ yyreduce:
   case 34:
 
 /* Line 1455 of yacc.c  */
-#line 252 "mls.y"
+#line 253 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = IF;
@@ -1777,7 +1778,7 @@ yyreduce:
   case 44:
 
 /* Line 1455 of yacc.c  */
-#line 268 "mls.y"
+#line 269 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = ABRE_PARENTESES;
@@ -1788,7 +1789,7 @@ yyreduce:
   case 45:
 
 /* Line 1455 of yacc.c  */
-#line 275 "mls.y"
+#line 276 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_AND;
@@ -1800,7 +1801,7 @@ yyreduce:
   case 46:
 
 /* Line 1455 of yacc.c  */
-#line 282 "mls.y"
+#line 283 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_OR;
@@ -1812,7 +1813,7 @@ yyreduce:
   case 47:
 
 /* Line 1455 of yacc.c  */
-#line 289 "mls.y"
+#line 290 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_IGUALDADE;
@@ -1824,7 +1825,7 @@ yyreduce:
   case 48:
 
 /* Line 1455 of yacc.c  */
-#line 296 "mls.y"
+#line 297 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_DIFERENTE;
@@ -1836,7 +1837,7 @@ yyreduce:
   case 49:
 
 /* Line 1455 of yacc.c  */
-#line 303 "mls.y"
+#line 304 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_MENOR;
@@ -1848,7 +1849,7 @@ yyreduce:
   case 50:
 
 /* Line 1455 of yacc.c  */
-#line 310 "mls.y"
+#line 311 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_MENOR_IGUAL;
@@ -1860,7 +1861,7 @@ yyreduce:
   case 51:
 
 /* Line 1455 of yacc.c  */
-#line 317 "mls.y"
+#line 318 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_MAIOR;
@@ -1872,7 +1873,7 @@ yyreduce:
   case 52:
 
 /* Line 1455 of yacc.c  */
-#line 324 "mls.y"
+#line 325 "mls.y"
     {
     (yyval.pont) = (No*)malloc(sizeof(No));
     (yyval.pont)->token = D_MAIOR_IGUAL;
@@ -1884,7 +1885,7 @@ yyreduce:
 
 
 /* Line 1455 of yacc.c  */
-#line 1888 "mls.tab.c"
+#line 1889 "mls.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2096,7 +2097,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 384 "mls.y"
+#line 385 "mls.y"
 
 
 int main(int argc, char *argv[]){
@@ -2122,6 +2123,7 @@ int main(int argc, char *argv[]){
     strcat(buffer,".cc");
 
     saida = fopen(buffer, "w");
+    file_tokens = fopen(strcat(argv[1],"_tokens.txt"), "w");
 
     if(!saida){
         printf("Ocorreu um erro ao gerar o arquivo de saida!\n");
@@ -2131,52 +2133,44 @@ int main(int argc, char *argv[]){
     yyparse();
 
     //Escrevendo arquivo de saida
-    fprintf(saida,"#include<iostream.h>\n");
-    fprintf(saida,"#include<stdio.h>\n");
-    fprintf(saida,"#include<math.h>\n\n");
+    fprintf(saida,"#include <iostream>\n");
+    fprintf(saida,"#include <stdio.h>\n");
+    fprintf(saida,"#include <math.h>\n\n");
     fprintf(saida,"using namespace std;\n\n");
     fprintf(saida,"int main(int argc, char *argv[]){\n");
     imprimir(root);
     fprintf(saida,"}");
     fclose(entrada);
     fclose(saida);    
+    fclose(file_tokens);    
 }
 
 void yyerror(const char *s) {
     printf("%s\n", s);
 }
 
-void imprimir(No *root){
-    printf("TO IMPRIMINDO");
-    printf("TOKEN %d \n", root->token);
-    cout << "Root " << root << endl;
-    cout << "Token " << IDENT << endl;
-    cout << "Token " << WRITE << endl;
-    cout << "Token " << IDENTPRINT << endl;
-    cout << "ToC " << root->toC << endl;
-    cout << "Esq " << root->esq << endl;
-    cout << "Dir " << root->dir << endl;
-    
+void imprimir(No *root){    
     if(root != NULL){
         switch(root->token){
             //Funcao print
             case WRITE:
-                fprintf(saida, "cout << ");
+                fprintf(file_tokens, "WRITE \n");
+                fprintf(saida, "cout << \"");
                 imprimir(root->esq);
-                fprintf(saida, " << endl; \n");
+                fprintf(saida, "\" << endl; \n");
                 break;
             case D_WRITE_ASPAS:
-                fprintf(saida, "cout << '");
+                fprintf(file_tokens, "WRITEVAR  \n");
+                fprintf(saida, "cout << \"");
                 imprimir(root->esq);
-                fprintf(saida, "' << endl; \n");
+                fprintf(saida, "\" << endl; \n");
                 break;
             case IDENT:
-                cout << "IDENT" << endl;
-                printf("%s", root->toC);
+                fprintf(file_tokens, "IDENT  \n");
                 fprintf(saida, "%s", root->toC);
                 break;
             case NUM:
-                cout << "VALOR NO " << root->valor_no << endl; 
+                fprintf(file_tokens, "NUM  \n");
                 fprintf(saida, "%g", root->valor_no);
                 break;
             case IDENTPRINT:
@@ -2187,23 +2181,27 @@ void imprimir(No *root){
 
             //Declaracao de variaveis
             case INT:
+                fprintf(file_tokens, "INT  \n");
                 fprintf(saida, "int ");
                 imprimir(root->esq);
                 fprintf(saida, ";\n");
                 break;
             case FLOAT:
+                fprintf(file_tokens, "FLOAT  \n");
                 fprintf(saida, "float ");
                 imprimir(root->esq);
                 fprintf(saida, ";\n");
                 break;
             case CHARACTER:
-                fprintf(saida, "char ");
+                fprintf(file_tokens, "CHARACTER  \n");
+                fprintf(saida, "string ");
                 imprimir(root->esq);
                 fprintf(saida, ";\n");
                 break;
             
             //Leitura
             case READ:
+                fprintf(file_tokens, "READ  \n");
                 fprintf(saida, "cin >> "); 
                 imprimir(root->esq); 
                 fprintf(saida, ";\n");  
@@ -2211,6 +2209,7 @@ void imprimir(No *root){
 
             //Atribuicao
             case '=':
+                fprintf(file_tokens, "=  \n");
                 imprimir(root->esq);
                 fprintf(saida, " = ");
                 imprimir(root->dir);
@@ -2219,78 +2218,95 @@ void imprimir(No *root){
 
             //Operacoes matematicas
             case '+':
+                fprintf(file_tokens, "+  \n");
                 imprimir(root->esq);
                 fprintf(saida, " + ");
                 imprimir(root->dir);
                 break;
             case '-':
+                fprintf(file_tokens, "-  \n");
                 imprimir(root->esq);
                 fprintf(saida, " - ");
                 imprimir(root->dir);
                 break;
             case '*':
+                fprintf(file_tokens, "*  \n");
                 imprimir(root->esq);
                 fprintf(saida, " * ");
                 imprimir(root->dir);
                 break;
             case '/':
+                fprintf(file_tokens, "/  \n");
                 imprimir(root->esq);
                 fprintf(saida, " / ");
                 imprimir(root->dir);
                 break;
             case '%':
+                fprintf(file_tokens, "%  \n");
                 imprimir(root->esq);
                 fprintf(saida, " % ");
                 imprimir(root->dir);
                 break;
             case ABRE_PARENTESES:
+                fprintf(file_tokens, "ABRE_PARENTESES  \n");
                 fprintf(saida, "(");
                 imprimir(root->esq);
+                fprintf(file_tokens, "FECHA_PARENTESES  \n");
                 fprintf(saida, ")");
                 break;
             case ASPAS:
+                fprintf(file_tokens, "ASPAS  \n");
                 fprintf(saida, "'");
                 imprimir(root->esq);
+                fprintf(file_tokens, "ASPAS  \n");
                 fprintf(saida, "'");
                 break;
             
             //Operacoes logicas
             case D_AND:
+                fprintf(file_tokens, "D_AND  \n");
                 imprimir(root->esq);
                 fprintf(saida, " && ");
                 imprimir(root->dir);
                 break;
             case D_OR:
+                fprintf(file_tokens, "D_OR  \n");
                 imprimir(root->esq);
                 fprintf(saida, " || ");
                 imprimir(root->dir);
                 break;
             case D_MENOR:
+                fprintf(file_tokens, "D_MENOR  \n");
                 imprimir(root->esq);
                 fprintf(saida, " < ");
                 imprimir(root->dir);
                 break;
             case D_MENOR_IGUAL:
+                fprintf(file_tokens, "D_MENOR_IGUAL  \n");
                 imprimir(root->esq);
                 fprintf(saida, " <= ");
                 imprimir(root->dir);
                 break;
             case D_MAIOR:
+                fprintf(file_tokens, "D_MAIOR  \n");
                 imprimir(root->esq);
                 fprintf(saida, " > ");
                 imprimir(root->dir);
                 break;
             case D_MAIOR_IGUAL:
+                fprintf(file_tokens, "D_MAIOR_IGUAL  \n");
                 imprimir(root->esq);
                 fprintf(saida, " >= ");
                 imprimir(root->dir);
                 break;
             case D_IGUALDADE:
+                fprintf(file_tokens, "D_IGUALDADE  \n");
                 imprimir(root->esq);
                 fprintf(saida, " == ");
                 imprimir(root->dir);
                 break;
             case D_DIFERENTE:
+                fprintf(file_tokens, "D_DIFERENTE  \n");
                 imprimir(root->esq);
                 fprintf(saida, " != ");
                 imprimir(root->dir);
@@ -2298,6 +2314,7 @@ void imprimir(No *root){
 
             //Operador condicional - IF
             case IF:
+                fprintf(file_tokens, "IF  \n");
                 fprintf(saida, "if (");
                 imprimir(root->esq);
                 fprintf(saida, "){\n");
@@ -2307,15 +2324,19 @@ void imprimir(No *root){
 
             //Repetidor - WHILE
             case WHILE:
+                fprintf(file_tokens, "WHILE  \n");
                 fprintf(saida, "while (");
                 imprimir(root->esq);
+                fprintf(file_tokens, "{  \n");
                 fprintf(saida, "){\n");
                 imprimir(root->dir);
+                fprintf(file_tokens, "}  \n");
                 fprintf(saida, "}\n");
                 break;
             
             default:
-                printf("tOKEN invalido %c \n", root->token);
+                fprintf(file_tokens, "TOKEN INVALIDO  \n");
+                printf("TOKEN INVALIDO %c \n", root->token);
                 fprintf(saida, "Token invalido %c \n", root->token);
         }
         if(root->proximo != NULL){

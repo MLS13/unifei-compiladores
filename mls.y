@@ -34,7 +34,7 @@ extern "C" FILE *yyin;
 void yyerror(const char *s);
 void imprimir(No *raiz);
 
-FILE *entrada, *saida, *tokens;
+FILE *entrada, *saida, *file_tokens;
 
 No *root;
 %}
@@ -107,8 +107,10 @@ Lista de tipos utlizados para regras de gramatica
 /*
 Declaracao das regras de gramaticas do BISON
 */
-programa: PROGRAMSTART lista_comandos PROGRAMEND { 
+programa: PROGRAMSTART lista_comandos PROGRAMEND {
+    fprintf(file_tokens, "PROGRAMSTART \n"); 
     root = $2; 
+    fprintf(file_tokens, "PROGRAMEND \n"); 
 }
 
 lista_comandos: comando PONTOVIRGULA {
@@ -233,7 +235,6 @@ texto: c_caracter {
 }
 
 c_caracter: IDENT {
-    cout << "IDENT - COUT" << endl;
     $$ = (No*)malloc(sizeof(No));
     $$->token = IDENT;
     strcpy($$->toC, yylval.pont->toC);
@@ -406,6 +407,7 @@ int main(int argc, char *argv[]){
     strcat(buffer,".cc");
 
     saida = fopen(buffer, "w");
+    file_tokens = fopen(strcat(argv[1],"_tokens.txt"), "w");
 
     if(!saida){
         printf("Ocorreu um erro ao gerar o arquivo de saida!\n");
@@ -415,52 +417,44 @@ int main(int argc, char *argv[]){
     yyparse();
 
     //Escrevendo arquivo de saida
-    fprintf(saida,"#include<iostream.h>\n");
-    fprintf(saida,"#include<stdio.h>\n");
-    fprintf(saida,"#include<math.h>\n\n");
+    fprintf(saida,"#include <iostream>\n");
+    fprintf(saida,"#include <stdio.h>\n");
+    fprintf(saida,"#include <math.h>\n\n");
     fprintf(saida,"using namespace std;\n\n");
     fprintf(saida,"int main(int argc, char *argv[]){\n");
     imprimir(root);
     fprintf(saida,"}");
     fclose(entrada);
     fclose(saida);    
+    fclose(file_tokens);    
 }
 
 void yyerror(const char *s) {
     printf("%s\n", s);
 }
 
-void imprimir(No *root){
-    printf("TO IMPRIMINDO");
-    printf("TOKEN %d \n", root->token);
-    cout << "Root " << root << endl;
-    cout << "Token " << IDENT << endl;
-    cout << "Token " << WRITE << endl;
-    cout << "Token " << IDENTPRINT << endl;
-    cout << "ToC " << root->toC << endl;
-    cout << "Esq " << root->esq << endl;
-    cout << "Dir " << root->dir << endl;
-    
+void imprimir(No *root){    
     if(root != NULL){
         switch(root->token){
             //Funcao print
             case WRITE:
+                fprintf(file_tokens, "WRITE \n");
                 fprintf(saida, "cout << ");
                 imprimir(root->esq);
                 fprintf(saida, " << endl; \n");
                 break;
             case D_WRITE_ASPAS:
-                fprintf(saida, "cout << '");
+                fprintf(file_tokens, "WRITEVAR  \n");
+                fprintf(saida, "cout << \"");
                 imprimir(root->esq);
-                fprintf(saida, "' << endl; \n");
+                fprintf(saida, "\" << endl; \n");
                 break;
             case IDENT:
-                cout << "IDENT" << endl;
-                printf("%s", root->toC);
+                fprintf(file_tokens, "IDENT  \n");
                 fprintf(saida, "%s", root->toC);
                 break;
             case NUM:
-                cout << "VALOR NO " << root->valor_no << endl; 
+                fprintf(file_tokens, "NUM  \n");
                 fprintf(saida, "%g", root->valor_no);
                 break;
             case IDENTPRINT:
@@ -471,23 +465,27 @@ void imprimir(No *root){
 
             //Declaracao de variaveis
             case INT:
+                fprintf(file_tokens, "INT  \n");
                 fprintf(saida, "int ");
                 imprimir(root->esq);
                 fprintf(saida, ";\n");
                 break;
             case FLOAT:
+                fprintf(file_tokens, "FLOAT  \n");
                 fprintf(saida, "float ");
                 imprimir(root->esq);
                 fprintf(saida, ";\n");
                 break;
             case CHARACTER:
-                fprintf(saida, "char ");
+                fprintf(file_tokens, "CHARACTER  \n");
+                fprintf(saida, "string ");
                 imprimir(root->esq);
                 fprintf(saida, ";\n");
                 break;
             
             //Leitura
             case READ:
+                fprintf(file_tokens, "READ  \n");
                 fprintf(saida, "cin >> "); 
                 imprimir(root->esq); 
                 fprintf(saida, ";\n");  
@@ -495,6 +493,7 @@ void imprimir(No *root){
 
             //Atribuicao
             case '=':
+                fprintf(file_tokens, "=  \n");
                 imprimir(root->esq);
                 fprintf(saida, " = ");
                 imprimir(root->dir);
@@ -503,78 +502,95 @@ void imprimir(No *root){
 
             //Operacoes matematicas
             case '+':
+                fprintf(file_tokens, "+  \n");
                 imprimir(root->esq);
                 fprintf(saida, " + ");
                 imprimir(root->dir);
                 break;
             case '-':
+                fprintf(file_tokens, "-  \n");
                 imprimir(root->esq);
                 fprintf(saida, " - ");
                 imprimir(root->dir);
                 break;
             case '*':
+                fprintf(file_tokens, "*  \n");
                 imprimir(root->esq);
                 fprintf(saida, " * ");
                 imprimir(root->dir);
                 break;
             case '/':
+                fprintf(file_tokens, "/  \n");
                 imprimir(root->esq);
                 fprintf(saida, " / ");
                 imprimir(root->dir);
                 break;
             case '%':
+                fprintf(file_tokens, "%  \n");
                 imprimir(root->esq);
                 fprintf(saida, " % ");
                 imprimir(root->dir);
                 break;
             case ABRE_PARENTESES:
+                fprintf(file_tokens, "ABRE_PARENTESES  \n");
                 fprintf(saida, "(");
                 imprimir(root->esq);
+                fprintf(file_tokens, "FECHA_PARENTESES  \n");
                 fprintf(saida, ")");
                 break;
             case ASPAS:
+                fprintf(file_tokens, "ASPAS  \n");
                 fprintf(saida, "'");
                 imprimir(root->esq);
+                fprintf(file_tokens, "ASPAS  \n");
                 fprintf(saida, "'");
                 break;
             
             //Operacoes logicas
             case D_AND:
+                fprintf(file_tokens, "D_AND  \n");
                 imprimir(root->esq);
                 fprintf(saida, " && ");
                 imprimir(root->dir);
                 break;
             case D_OR:
+                fprintf(file_tokens, "D_OR  \n");
                 imprimir(root->esq);
                 fprintf(saida, " || ");
                 imprimir(root->dir);
                 break;
             case D_MENOR:
+                fprintf(file_tokens, "D_MENOR  \n");
                 imprimir(root->esq);
                 fprintf(saida, " < ");
                 imprimir(root->dir);
                 break;
             case D_MENOR_IGUAL:
+                fprintf(file_tokens, "D_MENOR_IGUAL  \n");
                 imprimir(root->esq);
                 fprintf(saida, " <= ");
                 imprimir(root->dir);
                 break;
             case D_MAIOR:
+                fprintf(file_tokens, "D_MAIOR  \n");
                 imprimir(root->esq);
                 fprintf(saida, " > ");
                 imprimir(root->dir);
                 break;
             case D_MAIOR_IGUAL:
+                fprintf(file_tokens, "D_MAIOR_IGUAL  \n");
                 imprimir(root->esq);
                 fprintf(saida, " >= ");
                 imprimir(root->dir);
                 break;
             case D_IGUALDADE:
+                fprintf(file_tokens, "D_IGUALDADE  \n");
                 imprimir(root->esq);
                 fprintf(saida, " == ");
                 imprimir(root->dir);
                 break;
             case D_DIFERENTE:
+                fprintf(file_tokens, "D_DIFERENTE  \n");
                 imprimir(root->esq);
                 fprintf(saida, " != ");
                 imprimir(root->dir);
@@ -582,6 +598,7 @@ void imprimir(No *root){
 
             //Operador condicional - IF
             case IF:
+                fprintf(file_tokens, "IF  \n");
                 fprintf(saida, "if (");
                 imprimir(root->esq);
                 fprintf(saida, "){\n");
@@ -591,15 +608,19 @@ void imprimir(No *root){
 
             //Repetidor - WHILE
             case WHILE:
+                fprintf(file_tokens, "WHILE  \n");
                 fprintf(saida, "while (");
                 imprimir(root->esq);
+                fprintf(file_tokens, "{  \n");
                 fprintf(saida, "){\n");
                 imprimir(root->dir);
+                fprintf(file_tokens, "}  \n");
                 fprintf(saida, "}\n");
                 break;
             
             default:
-                printf("tOKEN invalido %c \n", root->token);
+                fprintf(file_tokens, "TOKEN INVALIDO  \n");
+                printf("TOKEN INVALIDO %c \n", root->token);
                 fprintf(saida, "Token invalido %c \n", root->token);
         }
         if(root->proximo != NULL){
