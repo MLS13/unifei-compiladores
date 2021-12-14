@@ -190,7 +190,7 @@ Figura 9 – Autômato while.
 |    Divisão    |    /    |
 |     Resto     |    %    |
 
-
+**Obs.:** *Operador % ainda não foi implementado.*
 
 ### 1.6 Palavras reservadas
 
