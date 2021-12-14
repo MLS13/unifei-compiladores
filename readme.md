@@ -28,21 +28,15 @@ apresentaram suas expressões regulares e/ou autômatos.
 
 
 
-<img src="imagens\automato_character.png" style="zoom:80%;" />
-
-Figura 1 – Autômato character.
-
-
-
 <img src="imagens\automato_int.png" style="zoom:80%;" />
 
-Figura 2 – Autômato int.
+Figura 1 – Autômato int.
 
 
 
 <img src="imagens\automato_float.png" style="zoom:80%;" />
 
-Figura 3 – Autômato float.
+Figura 2 – Autômato float.
 
 
 
@@ -59,7 +53,7 @@ Figura 3 – Autômato float.
 
 <img src="imagens\automato_programa.png" style="zoom:80%;" />
 
-Figura 4 – Autômato programa.
+Figura 3 – Autômato programa.
 
 
 
@@ -75,27 +69,42 @@ Lista de símbolos especiais: . ; : ( ) { }
 
 ### 1.4.1 Atribuição
 
-Comando de atribuição: (<=).
+Comando de atribuição: (=).
 
 
 
 ### 1.4.2 Entrada
 
-Comando para entrada de dados: read(<variável>|([A-Za-z]|[0-9])*).
+Comando para entrada de dados: read(\<variável>).
 
 <img src="imagens\automato_read.png" style="zoom:80%;" />
 
-Figura 5 – Autômato read.
+Figura 4 – Autômato read.
 
 
 
 ### 1.4.3 Saída
 
-Comando para saída de dados: write(<variável>|([A-Za-z]|[0-9])*).
+Para saída de dados, temos dois comandos: write e writevar.
+##### 1.4.3.1 write:
+- Utilizado para saída de texto
+- Expressão regular: write([a-zA-Z][a-zA-z0-9]*)
 
-<img src="imagens\automato_write.png" style="zoom:80%;" />
+- Autômato:
 
-Figura 6 – Autômato write.
+  <img src="imagens\automato_if.png" style="zoom:80%;" />
+
+Figura 5 – Autômato write.
+##### 1.4.3.2  writevar:
+
+- Utilizado para saída de variáveis
+- Expressão regular: writevar(\<variavel>)
+
+- Autômato:
+
+  <img src="imagens\automato_if.png" style="zoom:80%;" />
+
+Figura 6 – Autômato writevar.
 
 
 
@@ -103,9 +112,9 @@ Figura 6 – Autômato write.
 
 A linguagem terá suporte para duas estruturas de repetição, if e if/else.
 
-##### If:
+##### 1.4.4.1 If:
 
-- Expressão regular: if(<expressão lógica>)begin <instrução>* end
+- Expressão regular: if(<expressão lógica>){ <instrução>* }
 
 - Autômato:
 
@@ -115,7 +124,7 @@ Figura 7 – Autômato if.
 
 
 
-##### If/Else:
+##### 1.4.4.2 If/Else:
 
 - Expressão regular: if(<expressão lógica>){ <instrução>* }else{ <instrução>*}
 
@@ -125,6 +134,7 @@ Figura 7 – Autômato if.
 
 Figura 8 – Autômato if else.
 
+**Obs.:** *Operador else ainda não foi implementado.*
 
 
 ### 1.4.5 Repetição
