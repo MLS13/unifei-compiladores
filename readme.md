@@ -3,6 +3,14 @@ Linguagem desenvolvida para a disciplina de Compiladores do curso de Engenharia 
 
 A linguagem é composta por um analisador léxico e um analisador sintático. E após as análises, o código é convertido para a linguagem C++.
 
+# [Analisador Léxico](#analisador_lexico)
+
+# [Exemplo de código](#exemplo_codigo)
+
+# [Como utilizar](#como_utilizar)
+
+<div id="analisador_lexico"></div>
+
 # 1 **Analisador Léxico**
 
 Serão apresentados nesta seção as principais características da linguagem, algumas
@@ -14,9 +22,9 @@ apresentaram suas expressões regulares e/ou autômatos.
 
 |   Tipo    |   Label   |               Expressão Regular                |
 | :-------: | :-------: | :--------------------------------------------: |
-| Caractere | character |            (’) ([A-Za-z]\|[0-9] (')            |
-|  Inteiro  |    int    |            ([0-9])+ \| (-)([0-9])+             |
-|   Real    |   float   | ([0-9])+(.)([0-9])+ \| (-) ([0-9])+(.)([0-9])+ |
+| Caractere | character |             [a-zA-Z][a-zA-z0-9]*           |
+|  Inteiro  |    int    |            [-+]?[0-9]+            |
+|   Real    |   float   | [-+]?[0-9]+( "."[0-9]* )?( [eE]"-"?[0-9]* )? |
 
 
 
@@ -44,8 +52,8 @@ Figura 3 – Autômato float.
 | :------------------: | :----------: |
 |  Início do programa  | programStart |
 |   Fim do programa    |  programEnd  |
-| Início de uma função |    begin     |
-|  Fim de uma função   |     end      |
+| Início de uma função |    {     |
+|  Fim de uma função   |     }      |
 
 
 
@@ -57,7 +65,7 @@ Figura 4 – Autômato programa.
 
 ## 1.3 Símbolos especiais
 
-Lista de símbolos especiais: . ; : () .
+Lista de símbolos especiais: . ; : ( ) { }
 
 
 
@@ -109,7 +117,7 @@ Figura 7 – Autômato if.
 
 ##### If/Else:
 
-- Expressão regular: if(<expressão lógica>)begin <instrução>* else <instrução>*end
+- Expressão regular: if(<expressão lógica>){ <instrução>* }else{ <instrução>*}
 
 - Autômato:
 
@@ -121,27 +129,17 @@ Figura 8 – Autômato if else.
 
 ### 1.4.5 Repetição
 
-A linguagem terá suporte para duas estruturas de repetição, for e while.
-
-##### For:
-
-- Expressão regular: for((<variável>) (=) (<variável> | ([0-9]+)) (:) (<expressão lógica>) (:) (<variável>) (<incremento> | <decremento>))begin <instrução>* end
-
-- Autômato:
-
-  <img src="imagens\automato_for.png" style="zoom:80%;" />
-
-Figura 9 – Autômato for.
+A linguagem terá suporte para a estruturas de repetição while.
 
 ##### While:
 
-- Expressão regular: while((<expressão lógica>))begin <instrução>* end
+- Expressão regular: while((<expressão lógica>)){ <instrução>* }
 
 - Autômato:
 
   <img src="imagens\automato_while.png" style="zoom:80%;" />
 
-Figura 10 – Autômato while.
+Figura 9 – Autômato while.
 
 ## 1.5 Operadores
 
@@ -157,15 +155,18 @@ Figura 10 – Autômato while.
 |     Menor      |    <    |
 |     Menor      |   <=    |
 
+**Obs.:** *Operadores <= e >= ainda não foram implementados.*
 
 
 ### 1.5.2 Lógicos
 
 | Operador | Símbolo |
 | :------: | :-----: |
-|   And    |   and   |
-|    Or    |   or    |
-|   Not    |    !    |
+|   And    |   &   |
+|    Or    |   \|    |
+|   Not    |    !    | 
+
+**Obs.:** *Operador ! ainda não foi implementado.*
 
 
 
@@ -183,9 +184,10 @@ Figura 10 – Autômato while.
 
 ### 1.6 Palavras reservadas
 
-Lista de palavras reservadas: programStart, programEnd, begin, end, if, else, for,
-while, character, int, float, write, read, and, or, mod.
+Lista de palavras reservadas: programStart, programEnd, if, else,
+while, character, int, float, write, read.
 
+<div id="exemplo_codigo"></div>
 
 # 2 **Exemplo de código em MLS**
 | Código em MLS  | 
@@ -203,6 +205,7 @@ while, character, int, float, write, read, and, or, mod.
 |writevar(result);|
 |programEnd|
 
+<div id="como_utilizar"></div>
 
 # 3 **Como utilizar**
 Para executar os analizadores léxicos e sintáticos, e gerar o código em c++ e um arquivo contendo os tokens da linguagem, é necessário apenas executar o comando abaixo:
